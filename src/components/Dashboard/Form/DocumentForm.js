@@ -10,23 +10,23 @@ import Button from "../../Button/Button";
 export default class DocumentForm extends Component {
   state = {
     page: 0,
-    values: this.props.initialValues || {}
+    values: this.props.initialValues || {},
   };
 
   static Step = ({ children }) => children;
 
-  next = values =>
-    this.setState(state => ({
+  next = (values) =>
+    this.setState((state) => ({
       page: Math.min(state.page + 1, this.props.children.length - 1),
-      values
+      values,
     }));
 
   previous = () =>
-    this.setState(state => ({
-      page: Math.max(state.page - 1, 0)
+    this.setState((state) => ({
+      page: Math.max(state.page - 1, 0),
     }));
 
-  validate = values => {
+  validate = (values) => {
     const activePage = React.Children.toArray(this.props.children)[
       this.state.page
     ];
@@ -34,10 +34,11 @@ export default class DocumentForm extends Component {
     return activePage.props.validate ? activePage.props.validate(values) : {};
   };
 
-  handleSubmit = values => {
+  handleSubmit = (values) => {
     const { children, onSubmit } = this.props;
     const { page } = this.state;
     const isLastPage = page === React.Children.count(children) - 1;
+
     if (isLastPage) {
       return onSubmit(values);
     } else {
@@ -53,10 +54,10 @@ export default class DocumentForm extends Component {
 
     return (
       <React.Fragment>
-        <ProgressBar />
+        <ProgressBar pageCounter={this.state.page} />
         <Form
           mutators={{
-            ...arrayMutators
+            ...arrayMutators,
           }}
           initialValues={values}
           validate={this.validate}
@@ -89,5 +90,5 @@ DocumentForm.propTypes = {
   initialValues: PropTypes.object,
   children: PropTypes.node,
   reasonsList: PropTypes.array,
-  disabilityList: PropTypes.array
+  disabilityList: PropTypes.array,
 };

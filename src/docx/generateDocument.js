@@ -9,7 +9,10 @@ const TEMPLATE_PATH_NAME = {
   SPECJALNE: "specjalne",
   INDYWIDUALNE_ROCZNE: "indywidualne_roczne",
   REWALIDACYJNE: "rewalidacyjne",
-  OPINIA: "opinia"
+  OPINIA: "opinia",
+  ZARZADZENIE: "zarzadzenie",
+  PROTOKOL: "protokol",
+  ZAWIADOMIENIE: "zawiadomienie"
 };
 
 const COMMON_FILES = [
@@ -29,7 +32,6 @@ function generateDocument(documentType, data) {
   nunjucks.configure(path.resolve(__dirname, "assets"));
   const zip = new JSZip();
   const templatePath = TEMPLATE_PATH_NAME[documentType];
-
   zip.file(
     path.join("word", "footnotes.xml"),
     fs.readFileSync(
@@ -60,6 +62,4 @@ function generateDocument(documentType, data) {
   return zip;
 }
 
-module.exports = {
-  generateDocument
-};
+module.exports = { generateDocument };

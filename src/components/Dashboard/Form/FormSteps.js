@@ -3,7 +3,6 @@ import DocumentForm from "./DocumentForm";
 import ChildData from "./ChildData/ChildData";
 import Applicants from "./Applicants/Applicants";
 import Team from "./Team";
-
 import commonData from "../../../docx/fixtures";
 import { reasonsList, disabilityList } from "../../../staticData";
 
@@ -17,7 +16,7 @@ const onSubmit = async values => {
     ipcRenderer.send("print:value", values);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log("Something went wrong: ", error);
+    console.error("Something went wrong: ", error);
   }
 };
 
@@ -25,7 +24,7 @@ const FormSteps = () => (
   <React.Fragment>
     <DocumentForm initialValues={commonData} onSubmit={onSubmit}>
       <DocumentForm.Step>
-        <ChildData reasonsList={reasonsList} />
+        <ChildData />
       </DocumentForm.Step>
       <DocumentForm.Step>
         <Applicants reasonsList={reasonsList} disabilityList={disabilityList} />
